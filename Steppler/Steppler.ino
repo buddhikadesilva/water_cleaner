@@ -22,7 +22,7 @@ void setup() {
   pinMode(motorPin3, OUTPUT);
   pinMode(motorPin4, OUTPUT);
 
-    pinMode(motor2Pin1, OUTPUT);
+  pinMode(motor2Pin1, OUTPUT);
   pinMode(motor2Pin2, OUTPUT);
   pinMode(motor2Pin3, OUTPUT);
   pinMode(motor2Pin4, OUTPUT);
@@ -38,8 +38,8 @@ void loop(){
     count = 0;}
   else{
     anticlockwise();
-    clockwise2();
-  count++;}
+    clockwise2();}
+  count++;
 }
 
 //////////////////////////////////////////////////////////////////////////////

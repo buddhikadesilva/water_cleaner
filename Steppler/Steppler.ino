@@ -2,12 +2,22 @@ int motorPin1 = 8;    // Blue   - 28BYJ48 pin 1
 int motorPin2 = 9;    // Pink   - 28BYJ48 pin 2
 int motorPin3 = 10;    // Yellow - 28BYJ48 pin 3
 int motorPin4 = 11;    // Orange - 28BYJ48 pin 4
-                        // Red    - 28BYJ48 pin 5 (VCC)
+// Red    - 28BYJ48 pin 5 (VCC)
 int motor2Pin1 = 4;    // Blue   - 28BYJ48 pin 1
 int motor2Pin2 = 5;    // Pink   - 28BYJ48 pin 2
 int motor2Pin3 = 6;    // Yellow - 28BYJ48 pin 3
 int motor2Pin4 = 7;    // Orange - 28BYJ48 pin 4
-                        // Red    - 28BYJ48 pin 5 (VCC)
+// Red    - 28BYJ48 pin 5 (VCC)
+//M1
+int enA = A0;
+int in1 = 2;
+int in2 = 3;
+//M2
+int enB = A1;
+int in3 = 12;
+int in4 = 13;
+
+int choice;
 
 int motorSpeed = 1000;  //variable to set stepper speed /////////////////////////////////////////////////////////////CHANGE SPEED /////////////
 int count = 0;          // count of steps made
@@ -26,20 +36,68 @@ void setup() {
   pinMode(motor2Pin2, OUTPUT);
   pinMode(motor2Pin3, OUTPUT);
   pinMode(motor2Pin4, OUTPUT);
+
+
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+
+
   Serial.begin(9600);
 }
 
 //////////////////////////////////////////////////////////////////////////////
-void loop(){
-  if(count < countsperrev ){
-    clockwise();
-    anticlockwise2();}
-  else if (count == countsperrev * 2){
-    count = 0;}
-  else{
-    anticlockwise();
-    clockwise2();}
-  count++;
+void loop() {
+
+  if (Serial.available()) {
+    choice = Serial.read();
+  }
+
+  if (choice == '1') {
+    Serial.println("Forward...");
+    mpower(1, 1, 255 );
+    mpower(2, 1, 255 );
+    //  delay(2000);
+  }
+  if (choice == '0') {
+
+    Serial.println("Reverse...");
+    mpower(1, -1, 255 );
+    mpower(2, -1, 255);
+    // delay(2000);
+
+  }
+
+    if (choice == '2') {
+
+    Serial.println("Reverse...");
+    mpower(1, -1, 0 );
+    mpower(2, -1, 0);
+    // delay(2000);
+
+  }
+
+  if (choice == '8') {
+
+    if (count < countsperrev ) {
+      clockwise();
+      anticlockwise2();
+    }
+    else if (count == countsperrev * 2) {
+      count = 0;
+    }
+    else {
+      anticlockwise();
+      clockwise2();
+    }
+    count++;
+  }
+
+
+
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,7 +105,7 @@ void loop(){
 //delay "motorSpeed" between each pin setting (to determine speed)
 void anticlockwise()
 {
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     setOutput(i);
     delayMicroseconds(motorSpeed);
@@ -56,7 +114,7 @@ void anticlockwise()
 
 void clockwise()
 {
-  for(int i = 7; i >= 0; i--)
+  for (int i = 7; i >= 0; i--)
   {
     setOutput(i);
     delayMicroseconds(motorSpeed);
@@ -65,7 +123,7 @@ void clockwise()
 
 void anticlockwise2()
 {
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     setOutput2(i);
     delayMicroseconds(motorSpeed);
@@ -74,7 +132,7 @@ void anticlockwise2()
 
 void clockwise2()
 {
-  for(int i = 7; i >= 0; i--)
+  for (int i = 7; i >= 0; i--)
   {
     setOutput2(i);
     delayMicroseconds(motorSpeed);

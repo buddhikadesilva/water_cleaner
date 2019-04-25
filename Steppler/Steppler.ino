@@ -71,7 +71,7 @@ void loop() {
 
   }
 
-    if (choice == '2') {
+  if (choice == '2') {
 
     Serial.println("Reverse...");
     mpower(1, -1, 0 );
@@ -96,6 +96,23 @@ void loop() {
     count++;
   }
 
+  if (choice == '6') {
+    clockwise();
+    anticlockwise2();
+
+  }
+  if (choice == '5') {
+    anticlockwise();
+    clockwise2();
+
+  }
+  if (choice == '4') {
+
+    setOutput(0);
+
+    setOutput2(0);
+
+  }
 
 
 }
@@ -138,6 +155,9 @@ void clockwise2()
     delayMicroseconds(motorSpeed);
   }
 }
+
+
+
 
 void setOutput(int out)
 {

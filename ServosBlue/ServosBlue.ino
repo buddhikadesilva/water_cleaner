@@ -40,22 +40,23 @@ servo2.attach(8);
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-
+servo.write(140);
+servo2.write(40);
 
   Serial.begin(9600);
 }
 
 //////////////////////////////////////////////////////////////////////////////
-void loop() {
+void loopx() {
 
-  
-if(P2>150){
-  P2=150; 
+   
+if(P2>140){
+  P2=140; 
   stat2=true;  
   }
 
-  if(P2<30){
-  P2=30;   
+  if(P2<40){
+  P2=40;   
   stat2=false;
   }
 
@@ -70,13 +71,13 @@ if(P2>150){
 //////////////////////////////////
 
   
-if(P1>150){
-  P1=150; 
+if(P1>140){
+  P1=140; 
   stat=true;  
   }
 
-  if(P1<30){
-  P1=30;   
+  if(P1<40){
+  P1=40;   
   stat=false;
   }
 
@@ -98,7 +99,7 @@ servo2.write(P2);
 
 
 
-void loopx() {
+void loop() {
 
   if (Serial.available()) {
     choice = Serial.read();
@@ -167,28 +168,59 @@ void loopx() {
 
   if (choice == '8') {
 
-    if (count < countsperrev ) {
-      clockwise();
-      anticlockwise();
+   
+if(P2>140){
+  P2=140; 
+  stat2=true;  
+  }
+
+  if(P2<40){
+  P2=40;   
+  stat2=false;
+  }
+
+  if(stat2){
+    P2--;;
     }
-    else if (count == countsperrev * 2) {
-      count = 0;
+
+     if(stat2==false){
+    P2++;
     }
-    else {
-      anticlockwise();
-      clockwise();
+
+//////////////////////////////////
+
+  
+if(P1>140){
+  P1=140; 
+  stat=true;  
+  }
+
+  if(P1<40){
+  P1=40;   
+  stat=false;
+  }
+
+  if(stat){
+    P1--;;
     }
-    count++;
+
+     if(stat==false){
+    P1++;
+    }
+servo.write(P1);
+servo2.write(P2);
+
+  delay(15);  
+
+
   }
 
   if (choice == '6') {
-    clockwise();
-    anticlockwise();
+    
 
   }
   if (choice == '5') {
-    anticlockwise();
-    clockwise();
+  
 
   }
   if (choice == '4') {
